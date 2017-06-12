@@ -27,11 +27,11 @@ public class Juego extends Application
         Scene escena = new Scene(contenedor, 710, 710);
         escenario.setScene(escena);
         
-        Cabeza cabeza = new Cabeza(345, 345);
+        Cabeza cabeza = new Cabeza(345, 345, escena.getWidth(), escena.getHeight());
         serpiente.add(cabeza);
         contenedor.getChildren().add(cabeza);
         
-        Cola cola1 = new Cola(serpiente.get(serpiente.size() - 1).getTranslateX() + 20, serpiente.get(serpiente.size() - 1).getTranslateY());
+        Cola cola1 = new Cola(serpiente.get(serpiente.size() - 1).getTranslateX(), serpiente.get(serpiente.size() - 1).getTranslateY());
         serpiente.add(cola1);
         contenedor.getChildren().add(cola1);
         
@@ -42,7 +42,7 @@ public class Juego extends Application
         
         
         Timeline timeline = new Timeline();
-        KeyFrame keyframe = new KeyFrame(Duration.seconds(0.6), event -> {
+        KeyFrame keyframe = new KeyFrame(Duration.seconds(0.1), event -> {
             
             int i = (serpiente.size() - 1);
             while(i > 0){
@@ -54,11 +54,26 @@ public class Juego extends Application
             cabeza.moverEnY();
             
             if(comida.size() == 0){
-                int x = aleatoriox.nextInt(690);
-                int y = aleatorioy.nextInt(690);
-                Comida comida1 = new Comida(x, y);
-                comida.add(comida1);
-                contenedor.getChildren().add(comida1);
+                boolean libre = true;
+                boolean anadido = false;
+                
+                while(libre && !anadido){
+                    int x = aleatoriox.nextInt(690);
+                    int y = aleatorioy.nextInt(690);
+                    Comida comida1 = new Comida(x, y);
+                    for(int j = 0; j < serpiente.size(); j++){
+                        if(serpiente.get(j).getBoundsInParent().intersects(comida1.getBoundsInParent())){
+                            libre = false;
+                        }
+                    }
+                    
+                    if(libre){
+                        comida.add(comida1);
+                        contenedor.getChildren().add(comida1);
+                        anadido = true;
+                    }
+                }
+                
             }
             
             if(comida.size() != 0){
