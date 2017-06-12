@@ -16,6 +16,7 @@ public class Cabeza extends ParteDelCuerpo
         this.anchoEscena = anchoEscena;
         this.altoEscena = altoEscena;
         direccion = "";
+        velocidadEnX = 20;
     }
 
     public void cambiarDireccionALaDerecha()

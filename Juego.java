@@ -9,6 +9,8 @@ import javafx.scene.input.KeyCode;
 import java.util.ArrayList;
 import java.util.Random;
 import javafx.scene.paint.*;
+import javafx.scene.control.Label;
+import javafx.scene.shape.Shape;
 
 public class Juego extends Application
 {
@@ -87,6 +89,17 @@ public class Juego extends Application
                     
                 }
                 
+            }
+            
+            for(int k = 1; k < serpiente.size(); k++){
+                Shape interseccion = Shape.intersect(cabeza,serpiente.get(k));
+                if(interseccion.getBoundsInParent().getWidth() != -1){
+                    Label mensajeGameOver = new Label("Game over");
+                    mensajeGameOver.setTranslateX(escena.getWidth() / 2);
+                    mensajeGameOver.setTranslateY(escena.getHeight() / 2);
+                    contenedor.getChildren().add(mensajeGameOver);
+                    timeline.stop();
+                }
             }
             
         });
