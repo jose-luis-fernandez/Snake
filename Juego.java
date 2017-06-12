@@ -31,10 +31,9 @@ public class Juego extends Application
         serpiente.add(cabeza);
         contenedor.getChildren().add(cabeza);
         
-        Cola cola1 = new Cola(345, 345);
+        Cola cola1 = new Cola(serpiente.get(serpiente.size() - 1).getTranslateX() + 20, serpiente.get(serpiente.size() - 1).getTranslateY());
         serpiente.add(cola1);
         contenedor.getChildren().add(cola1);
-        
         
         escenario.show();
         
@@ -60,6 +59,19 @@ public class Juego extends Application
                 Comida comida1 = new Comida(x, y);
                 comida.add(comida1);
                 contenedor.getChildren().add(comida1);
+            }
+            
+            if(comida.size() != 0){
+                if(serpiente.get(0).getBoundsInParent().intersects(comida.get(0).getBoundsInParent())){
+                    comida.get(0).setFill(Color.TRANSPARENT);
+                    comida.remove(0);
+                    
+                    Cola cola = new Cola(serpiente.get(serpiente.size() - 1).getTranslateX(), serpiente.get(serpiente.size() - 1).getTranslateY());
+                    serpiente.add(cola);
+                    contenedor.getChildren().add(cola);
+                    
+                }
+                
             }
             
         });

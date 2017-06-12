@@ -8,6 +8,10 @@ public class ParteDelCuerpo extends Rectangle
     
     public ParteDelCuerpo(double x, double y)
     {
-        super(x, y, ANCHO, ALTO);
+        super();
+        this.setTranslateX(x);
+        this.setTranslateY(y);
+        this.setWidth(ANCHO);
+        this.setHeight(ALTO);
     }
 }
